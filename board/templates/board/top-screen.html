@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+            <form action="{% url 'board:create' %}" method="get">
+                {% csrf_token %}
+                <input type="submit" value="Create New Article">
+            </form>
+        </div>
+            {% for article in articles %}
+                <div>
+                    <h4><a href="{% url 'board:detail' art=article.id %}">{{ article.title }}</a></h4>
+                    <h5>{{ article.snippet }}</h5>
+                    <h6>{{ article.dateCreated}}</h6>
+                    <button onclick="edit('{{article.id}}')">Edit</button>
+                    <button onclick="del('{{article.id}}')">Delete</button>
+                </div>
+            {% endfor %}
+    </body>
+    <script>
+        function edit(id){
+            location.href = "edit/" +id;
+        }
+        function del(id){
+            location.href = "delete/" +id;
+        }
+    </script>
+</html>
